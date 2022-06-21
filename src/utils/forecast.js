@@ -11,9 +11,12 @@ const forecast = (latitude, longitude, callback)=>{
         }else if(response.body.error){
             callback('Unable to find location.', undefined);
         }else{
+            const description = response.body.current.weather_descriptions[0];
             const temperature = response.body.current.temperature;
             const feelslike = response.body.current.feelslike;
-            const res = 'The temperature is '+temperature+ ' degree. It feelslike '+feelslike+' degree outside';
+            const humidity = response.body.current.humidity;
+            const cloudcover = response.body.current.cloudcover;
+            const res = description+'. The temperature is '+temperature+ ' degree. It feelslike '+feelslike+' degree outside. Humidity(%) is '+humidity+'. Cloud cover percentage is '+cloudcover+'.';
             callback(undefined, res);
         }
     });
