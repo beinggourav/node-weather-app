@@ -5,6 +5,7 @@ const geocode = require('./utils/geocode.js');
 const forecast = require('./utils/forecast');
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 // setup static directory to serve
 const publicPath = path.join(__dirname, '../public');
@@ -117,6 +118,6 @@ app.get('*', (req,res)=>{
     });
 })
 
-app.listen(3000, ()=>{
-    console.log('Server is running on 3000');
+app.listen(port, ()=>{
+    console.log('Server is running on '+port);
 })
