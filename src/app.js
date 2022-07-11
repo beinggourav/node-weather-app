@@ -4,8 +4,9 @@ const hbs = require('hbs');
 const geocode = require('./utils/geocode.js');
 const forecast = require('./utils/forecast');
 
+require('dotenv').config();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // setup static directory to serve
 const publicPath = path.join(__dirname, '../public');
@@ -92,7 +93,7 @@ app.get('/weather', (req,res)=>{
         if(error){
             return res.send({ error });
         }
-        forecast(data.latitude, data.longitude, (error, forecastData)=>{
+        forecast(data.latitude, data.longitude, (error, location, forecastData)=>{
             if(error){
                 return res.send({ error });
             }
@@ -109,6 +110,20 @@ app.get('/weather', (req,res)=>{
     // });
 })
 
+// using currentLocation
+app.get('/weatherbycoords', (req,res)=>{
+    const latitude = req.query.latitude;
+    const longitude = req.query.longitude;
+    forecast(latitude, longitude, (error, location, forecastData)=>{
+        if(error){
+            return res.send({ error });
+        }
+        res.send({
+            location,
+            forecast: forecastData
+        })
+    })
+})
 
 app.get('*', (req,res)=>{
     res.render('404', {

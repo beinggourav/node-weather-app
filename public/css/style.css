@@ -52,6 +52,7 @@ input{
     border: 1px solid #cccccc;
     border-radius: 5px;
     padding: 8px;
+    margin-bottom: 8px;
     font-size: 1.1rem;
 }
 button{

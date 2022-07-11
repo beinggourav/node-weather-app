@@ -1,9 +1,8 @@
 const request = require('postman-request');
 
-const key = 'a48eaa46c40224cd835c85cdf925f7bd';
-// Ex url=http://api.positionstack.com/v1/forward?access_key=a48eaa46c40224cd835c85cdf925f7bd&query=1600 Amphitheatre Parkway, Mountain View, CA
+// Ex url=http://api.positionstack.com/v1/forward?access_key=<access_key>&query=1600 Amphitheatre Parkway, Mountain View, CA
 const geocode = (address, callback) => {
-    const url = 'http://api.positionstack.com/v1/forward?access_key='+key+'&query='+address;
+    const url = 'http://api.positionstack.com/v1/forward?access_key='+process.env.POSITION_STACK_ACCESS_KEY+'&query='+address;
     request({url: url, json: true}, (error,response)=>{
         if(error){
             callback('Unable to connect to geocode service!', undefined);
